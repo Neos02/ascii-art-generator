@@ -1,7 +1,12 @@
 const imageInput = document.getElementById("imageInput");
+const kernelInput = document.getElementById("kernelSize");
 
 const canvas = document.getElementById("imageCanvas");
 const ctx = canvas.getContext("2d");
+
+const asciiContainer = document.getElementById("asciiContainer");
+
+const CHARACTERS = " .,:;ox%#@";
 
 imageInput.onchange = (event) => {
   if (event.target.files.length != 1) {
@@ -15,7 +20,7 @@ imageInput.onchange = (event) => {
     console.error("Invalid mime type");
   }
 
-  loadImageToCanvas(file).then(convertCanvasToGrayscale).catch(console.error);
+  loadImageToCanvas(file).then(convertCanvasToAscii).catch(console.error);
 };
 
 function isValidMimeType(mimeType) {
@@ -47,7 +52,7 @@ function loadImageToCanvas(imageFile) {
   });
 }
 
-function convertCanvasToGrayscale() {
+function convertCanvasToAscii() {
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   const data = imageData.data;
 
@@ -59,7 +64,50 @@ function convertCanvasToGrayscale() {
     data[i + 2] = grayValue; // blue
   }
 
-  ctx.putImageData(imageData, 0, 0);
+  // TODO: ensure this is a number
+  const kernelSize = +kernelInput.value;
+
+  if (kernelSize <= 0 || kernelSize > canvas.width) {
+    console.error("Invalid kernel size");
+    return;
+  }
+
+  let ascii = "";
+
+  for (let y = 0; y < canvas.height; y += kernelSize) {
+    for (let x = 0; x < canvas.width; x += kernelSize) {
+      const brightness = calculateKernelBrightness(imageData, x, y, kernelSize);
+      const characterIndex = Math.floor((brightness / 256) * CHARACTERS.length);
+      ascii += CHARACTERS[characterIndex];
+    }
+
+    ascii += "\n";
+  }
+
+  asciiContainer.innerText = ascii;
+}
+
+function calculateKernelBrightness(imageData, xStart, yStart, kernelSize) {
+  const xEnd = xStart + kernelSize;
+  const yEnd = yStart + kernelSize;
+  const pixelCount = kernelSize * kernelSize;
+  let sum = 0;
+  let test = 0;
+
+  for (let y = yStart; y < yEnd; y++) {
+    for (let x = xStart; x < xEnd; x++) {
+      if (x < canvas.width && y < canvas.height) {
+        sum += imageData.data[coordinateToPixelIndex(x, y, imageData.width)];
+      }
+      test++;
+    }
+  }
+
+  return sum / pixelCount;
+}
+
+function coordinateToPixelIndex(x, y, imageWidth) {
+  return 4 * (y * imageWidth + x);
 }
 
 function rgbToGrayscale(red, green, blue) {

@@ -4,12 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ASCII Art Generator</title>
-    <link type="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <input id="imageInput" type="file" accept="image/jpeg,image/png,image/webp" />
+    <input id="kernelSize" type="number" value="10" min="1" max="100" />
 
     <canvas id="imageCanvas"></canvas>
+
+    <div id="asciiContainer"></div>
 
     <script type="text/javascript" src="./main.js"></script>
   </body>
