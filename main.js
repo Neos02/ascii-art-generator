@@ -65,9 +65,9 @@ function convertCanvasToAscii() {
   }
 
   // TODO: ensure this is a number
-  const kernelSize = +kernelInput.value;
+  const kernelSize = Math.min(+kernelInput.value, Math.min(canvas.width, canvas.height));
 
-  if (kernelSize <= 0 || kernelSize > canvas.width) {
+  if (kernelSize <= 0) {
     console.error("Invalid kernel size");
     return;
   }

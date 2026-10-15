@@ -7,8 +7,17 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <input id="imageInput" type="file" accept="image/jpeg,image/png,image/webp" />
-    <input id="kernelSize" type="number" value="10" min="1" max="100" />
+    <form id="imageForm" class="retro-border retro-shadow">
+      <label>
+        Kernel Size (Resolution)
+        <input id="kernelSize" type="number" value="10" min="1" placeholder="Kernel Size" required />
+      </label>
+      <label>
+        Image
+        <input id="imageInput" type="file" accept="image/jpeg,image/png,image/webp" required />
+      </label>
+      <button type="submit">Generate</button>
+    </form>
 
     <canvas id="imageCanvas"></canvas>
 

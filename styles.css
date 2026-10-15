@@ -1,15 +1,75 @@
+:root {
+  --primary: oklch(77.561% 0.13542 300.406);
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: monospace;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100dvw;
+  height: 100dvh;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  width: 100%;
+  font-weight: 600;
+}
+
+button {
+  background-color: var(--primary);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+input[type="file"]::file-selector-button {
+  display: none;
+}
+
+button,
+input[type="number"],
+input[type="file"] {
+  padding: 0.5rem;
+}
+
+.retro-border,
+button,
+input[type="number"],
+input[type="file"] {
+  border: 2px solid black;
+}
+
+.retro-shadow,
+button,
+input[type="number"],
+input[type="file"] {
+  box-shadow: 0.375rem 0.375rem 0 0 #000;
+}
+
+#asciiContainer {
+  background-color: #000;
+  color: #fff;
 }
 
 #imageCanvas {
   display: none;
 }
 
-#asciiContainer {
-  background-color: #000;
-  color: #fff;
-  font-family: monospace;
+#imageForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  width: min(90%, 600px);
+  padding: 1rem;
 }
