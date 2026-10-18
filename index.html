@@ -12,13 +12,27 @@
 
       <label>
         Kernel Size (Resolution)
-        <input id="kernelSize" type="number" value="10" min="1" placeholder="Kernel Size" required />
+        <input
+          id="kernelSize"
+          class="retro-border retro-shadow retro-shadow-focus"
+          type="number"
+          value="10"
+          min="1"
+          placeholder="Kernel Size"
+          required
+        />
       </label>
       <label>
         Image
-        <input id="imageInput" type="file" accept="image/jpeg,image/png,image/webp" required />
+        <input
+          id="imageInput"
+          class="retro-border retro-shadow retro-shadow-focus"
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          required
+        />
       </label>
-      <button type="submit">Generate</button>
+      <button class="retro-border retro-shadow retro-shadow-focus" type="submit">Generate</button>
     </form>
 
     <canvas id="imageCanvas"></canvas>

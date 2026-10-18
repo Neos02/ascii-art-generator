@@ -46,18 +46,35 @@ input[type="file"] {
   padding: 0.5rem;
 }
 
-.retro-border,
-button,
-input[type="number"],
-input[type="file"] {
+.retro-border {
   border: 2px solid black;
 }
 
-.retro-shadow,
-button,
-input[type="number"],
-input[type="file"] {
+button {
+  transition:
+    0.1s ease-in-out box-shadow,
+    0.1s ease-in-out transform !important;
+}
+
+button:hover {
+  transform: translate(-0.125rem, -0.125rem);
+  box-shadow: 0.5rem 0.5rem 0 0 #000;
+}
+
+button:focus,
+button:active {
+  transform: none;
+}
+
+.retro-shadow {
   box-shadow: 0.375rem 0.375rem 0 0 #000;
+  transition: 0.1s ease-in-out box-shadow;
+  outline: none;
+}
+
+.retro-shadow-focus:focus,
+.retro-shadow-focus:active {
+  box-shadow: 0 0 0 0 #000;
 }
 
 #asciiContainer {
