@@ -15,6 +15,11 @@ body {
   align-items: center;
   width: 100dvw;
   height: 100dvh;
+  background-color: var(--primary);
+}
+
+h1 {
+  border-bottom: 6px solid #000;
 }
 
 label {
@@ -69,7 +74,8 @@ input[type="file"] {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  gap: 1.75rem;
   width: min(90%, 600px);
-  padding: 1rem;
+  padding: 1.5rem 1rem;
+  background-color: #fff;
 }
