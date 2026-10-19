@@ -1,5 +1,4 @@
-const imageInput = document.getElementById("imageInput");
-const kernelInput = document.getElementById("kernelSize");
+const form = document.getElementById("imageForm");
 
 const canvas = document.getElementById("imageCanvas");
 const ctx = canvas.getContext("2d");
@@ -7,29 +6,25 @@ const ctx = canvas.getContext("2d");
 const asciiContainer = document.getElementById("asciiContainer");
 
 const CHARACTERS = " .,:;ox%#@";
+const DEFAULT_KERNEL_SIZE = 10;
 
-imageInput.onchange = (event) => {
-  if (event.target.files.length != 1) {
-    console.error("1 file must be provided");
-    return;
+form.onsubmit = (event) => {
+  event.preventDefault();
+
+  const formData = new FormData(event.target);
+  const image = formData.get("image");
+  let kernelSize = +formData.get("kernelSize");
+
+  if (kernelSize == 0) {
+    kernelSize = DEFAULT_KERNEL_SIZE;
   }
 
-  const file = event.target.files[0];
+  loadImageToCanvas(image)
+    .then(() => convertCanvasToAscii(kernelSize))
+    .catch(console.error);
 
-  if (!isValidMimeType(file.type)) {
-    console.error("Invalid mime type");
-  }
-
-  loadImageToCanvas(file).then(convertCanvasToAscii).catch(console.error);
+  console.log(kernelSize, image);
 };
-
-function isValidMimeType(mimeType) {
-  if (!mimeType?.startsWith("image/")) {
-    return false;
-  }
-
-  return ["jpeg", "png", "webp"].includes(mimeType.substring(6).toLowerCase());
-}
 
 function loadImageToCanvas(imageFile) {
   return new Promise((resolve, reject) => {
@@ -38,7 +33,7 @@ function loadImageToCanvas(imageFile) {
 
     image.onerror = () => {
       URL.revokeObjectURL(this.src);
-      console.error("cannot load image");
+      console.error("Cannot load image");
       reject("Cannot load image");
     };
 
@@ -52,7 +47,7 @@ function loadImageToCanvas(imageFile) {
   });
 }
 
-function convertCanvasToAscii() {
+function convertCanvasToAscii(kernelSize) {
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   const data = imageData.data;
 
@@ -62,14 +57,6 @@ function convertCanvasToAscii() {
     data[i] = grayValue; // red
     data[i + 1] = grayValue; // green
     data[i + 2] = grayValue; // blue
-  }
-
-  // TODO: ensure this is a number
-  const kernelSize = Math.min(+kernelInput.value, Math.min(canvas.width, canvas.height));
-
-  if (kernelSize <= 0) {
-    console.error("Invalid kernel size");
-    return;
   }
 
   let ascii = "";
