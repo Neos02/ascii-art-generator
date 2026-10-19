@@ -73,7 +73,7 @@ button:active {
 }
 
 .retro-shadow-focus:focus,
-.retro-shadow-focus:active {
+.retro-shadow-active:active {
   box-shadow: 0 0 0 0 #000;
 }
 
