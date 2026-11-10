@@ -22,8 +22,6 @@ form.onsubmit = (event) => {
   loadImageToCanvas(image)
     .then(() => convertCanvasToAscii(kernelSize))
     .catch(console.error);
-
-  console.log(kernelSize, image);
 };
 
 function loadImageToCanvas(imageFile) {

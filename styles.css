@@ -10,11 +10,6 @@
 }
 
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100dvw;
-  height: 100dvh;
   background-color: var(--primary);
 }
 
@@ -78,12 +73,27 @@ button:active {
 }
 
 #asciiContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 100dvw;
+  min-height: 100dvh;
+  padding: 2rem;
   background-color: #000;
   color: #fff;
+  white-space: nowrap;
 }
 
 #imageCanvas {
   display: none;
+}
+
+#formContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100dvw;
+  height: 100dvh;
 }
 
 #imageForm {

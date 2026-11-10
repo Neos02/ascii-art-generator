@@ -7,33 +7,35 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <form id="imageForm" class="retro-border retro-shadow">
-      <h1>ASCII Art Generator</h1>
+    <div id="formContainer">
+      <form id="imageForm" class="retro-border retro-shadow">
+        <h1>ASCII Art Generator</h1>
 
-      <label>
-        Kernel Size (Resolution)
-        <input
-          name="kernelSize"
-          id="kernelSize"
-          class="retro-border retro-shadow retro-shadow-focus"
-          type="number"
-          min="1"
-          placeholder="10"
-        />
-      </label>
-      <label>
-        Image
-        <input
-          name="image"
-          id="imageInput"
-          class="retro-border retro-shadow retro-shadow-active"
-          type="file"
-          accept="image/jpeg,image/png,image/webp"
-          required
-        />
-      </label>
-      <button class="retro-border retro-shadow retro-shadow-active" type="submit">Generate</button>
-    </form>
+        <label>
+          Kernel Size (Resolution)
+          <input
+            name="kernelSize"
+            id="kernelSize"
+            class="retro-border retro-shadow retro-shadow-focus"
+            type="number"
+            min="1"
+            placeholder="10"
+          />
+        </label>
+        <label>
+          Image
+          <input
+            name="image"
+            id="imageInput"
+            class="retro-border retro-shadow retro-shadow-active"
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            required
+          />
+        </label>
+        <button class="retro-border retro-shadow retro-shadow-active" type="submit">Generate</button>
+      </form>
+    </div>
 
     <canvas id="imageCanvas"></canvas>
 
