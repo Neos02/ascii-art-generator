@@ -71,7 +71,8 @@ function convertCanvasToAscii(kernelSize) {
     ascii += "\n";
   }
 
-  asciiContainer.innerText = ascii;
+  asciiContainer.value = ascii;
+  asciiContainer.style.display = "flex";
 }
 
 function calculateKernelBrightness(imageData, xStart, yStart, kernelWidth, kernelHeight) {
