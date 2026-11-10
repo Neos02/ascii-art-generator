@@ -59,11 +59,13 @@ function convertCanvasToAscii(kernelSize) {
     data[i + 2] = grayValue; // blue
   }
 
+  const kernelWidth = kernelSize * 0.6;
+  const kernelHeight = kernelSize;
   let ascii = "";
 
-  for (let y = 0; y < canvas.height; y += kernelSize) {
-    for (let x = 0; x < canvas.width; x += kernelSize) {
-      const brightness = calculateKernelBrightness(imageData, x, y, kernelSize);
+  for (let y = 0; y < canvas.height; y += kernelHeight) {
+    for (let x = 0; x < canvas.width; x += kernelWidth) {
+      const brightness = calculateKernelBrightness(imageData, x, y, kernelWidth, kernelHeight);
       const characterIndex = Math.floor((brightness / 256) * CHARACTERS.length);
       ascii += CHARACTERS[characterIndex];
     }
@@ -74,19 +76,17 @@ function convertCanvasToAscii(kernelSize) {
   asciiContainer.innerText = ascii;
 }
 
-function calculateKernelBrightness(imageData, xStart, yStart, kernelSize) {
-  const xEnd = xStart + kernelSize;
-  const yEnd = yStart + kernelSize;
-  const pixelCount = kernelSize * kernelSize;
+function calculateKernelBrightness(imageData, xStart, yStart, kernelWidth, kernelHeight) {
+  const xEnd = xStart + kernelWidth;
+  const yEnd = yStart + kernelHeight;
+  const pixelCount = kernelWidth * kernelHeight;
   let sum = 0;
-  let test = 0;
 
   for (let y = yStart; y < yEnd; y++) {
     for (let x = xStart; x < xEnd; x++) {
       if (x < canvas.width && y < canvas.height) {
         sum += imageData.data[coordinateToPixelIndex(x, y, imageData.width)];
       }
-      test++;
     }
   }
 
