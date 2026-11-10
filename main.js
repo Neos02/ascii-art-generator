@@ -49,7 +49,10 @@ function loadImageToCanvas(imageFile) {
 }
 
 function convertCanvasToAscii(kernelSize) {
-  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height, {
+    colorSpace: "srgb",
+    pixelFormat: "rgba-unorm8",
+  });
   const data = imageData.data;
 
   for (let i = 0; i < data.length; i += 4) {
@@ -60,7 +63,7 @@ function convertCanvasToAscii(kernelSize) {
     data[i + 2] = grayValue; // blue
   }
 
-  const kernelWidth = kernelSize * 0.6;
+  const kernelWidth = Math.round(kernelSize * 0.6);
   const kernelHeight = kernelSize;
   let ascii = "";
 
