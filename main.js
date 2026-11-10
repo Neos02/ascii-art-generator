@@ -20,7 +20,10 @@ form.onsubmit = (event) => {
   }
 
   loadImageToCanvas(image)
-    .then(() => convertCanvasToAscii(kernelSize))
+    .then(() => {
+      convertCanvasToAscii(kernelSize);
+      window.scrollTo(0, document.body.scrollHeight);
+    })
     .catch(console.error);
 };
 
